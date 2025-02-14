@@ -64,4 +64,6 @@ return [
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
     ],
 
+    'SANCTUM_SECRET_TOKEN' => env('SANCTUM_SECRET_TOKEN', 'secret')
+
 ];
