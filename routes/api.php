@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resource('profiles', ProfileController::class)->except([
         'create',
         'store'
+    ]);
+
+    // Posts
+    Route::post('/posts/like_post/{post}', [PostController::class, 'likePost']);
+    Route::resource('posts', PostController::class)->only([
+        'index',
+        'show',
+        'store',
+        'destroy'
     ]);
 });
