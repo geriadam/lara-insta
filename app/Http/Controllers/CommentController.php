@@ -14,8 +14,9 @@ class CommentController extends Controller
             'content' => 'required|string'
         ]);
 
-        $newComment = $post->comments()->create([
+        $newComment = Comment::create([
             'user_id' => $request->user()->id,
+            'post_id' => $post->id,
             'content' => $data['content']
         ]);
 
