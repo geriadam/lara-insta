@@ -89,7 +89,8 @@
         </svg>
       </button>
     </div>
-    Form Add Post
+    <!-- FORM -->
+    <add-post/>
   </modal>
 
 </template>
@@ -101,12 +102,13 @@ import {useRouter} from 'vue-router'
 
 import Container from './Container.vue'
 import Modal from "./Modal.vue";
+import AddPost from "../pages/Post/AddPost.vue";
 import UserProfile from "./UserProfile.vue";
 import useProfile from "../composables/profiles.js";
 
 export default {
   name: 'Navbar',
-  components: {Container, Modal, UserProfile},
+  components: {Container, Modal, AddPost, UserProfile},
   setup() {
     const store = useStore()
     const router = useRouter()

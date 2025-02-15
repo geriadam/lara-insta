@@ -53,6 +53,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/following', [FollowsController::class, 'following']);
 
     // Comments
-    Route::post('/comments/{comment}', [CommentController::class, 'store']);
+    Route::post('/comments/{post}', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 });

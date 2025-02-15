@@ -18,8 +18,10 @@
                     alt="dp"/>
               </div>
             </div>
+            <additional-profile :response="response"/>
           </div>
         </div>
+        <Posts :posts="response.profile.posts"/>
       </div>
     </Container>
   </Authenticated>
@@ -34,6 +36,9 @@ import useProfile from '../../composables/profiles'
 import Container from '../../components/Container.vue'
 import Navbar from '../../components/Navbar.vue'
 import Authenticated from '../../components/slot/Authenticated.vue'
+import AdditionalProfile from '../../components/AdditionalProfile.vue'
+
+import Posts from './Posts.vue'
 
 // Loader
 import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
@@ -42,8 +47,10 @@ export default {
   components: {
     Navbar,
     Container,
+    Posts,
     Authenticated,
     ClipLoader,
+    AdditionalProfile,
   },
   setup(props) {
     const {response, isLoading, getProfileByUsername} = useProfile()

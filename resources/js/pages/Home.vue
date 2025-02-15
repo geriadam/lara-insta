@@ -12,8 +12,14 @@
           </div>
           <div v-else>
             <div v-for="(post, index) in posts" :key="index">
-              Post
+              <post-card :post="post" />
             </div>
+          </div>
+
+          <div class="hidden md:block">
+            <suggestions
+              :following="response.following"
+              :suggestions="response.suggestions" />
           </div>
         </div>
       </Container>
@@ -22,10 +28,14 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
+import useFollow from '../composables/follow'
+import usePost from '../composables/posts'
 import Container from '../components/Container.vue'
 import Navbar from '../components/Navbar.vue'
+import PostCard from '../components/PostCard.vue'
+import Suggestions from '../components/Suggestions.vue'
 import Authenticated from '../components/slot/Authenticated.vue'
 import Modal from "../components/Modal.vue";
 
@@ -35,15 +45,32 @@ export default {
   name: 'Home',
   components: {
     Navbar,
+    PostCard,
     Container,
+    Suggestions,
     Authenticated,
     ClipLoader,
     Modal
   },
   setup() {
     const store = useStore()
+
+    // Get the token from state
     const token = computed(() => store.getters.token)
-    console.log(token)
+
+    const { response, getFollowings } = useFollow()
+    const { posts, isLoading, getPostsFromYourFollowings } = usePost()
+
+    onMounted(() => {
+      getFollowings(token.value)
+      getPostsFromYourFollowings(token.value)
+    })
+
+    return {
+      response,
+      posts,
+      isLoading,
+    }
   },
 }
 </script>
