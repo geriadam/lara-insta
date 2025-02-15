@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FollowsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,4 +46,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         'store',
         'destroy'
     ]);
+
+    //Follow
+    Route::post('/follow/{user}', [FollowsController::class, 'store']);
+    Route::get('/following', [FollowsController::class, 'following']);
 });
