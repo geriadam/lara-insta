@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', LogoutController::class);
     Route::get('/me', MeController::class);
     Route::post('/change_password', ChangePasswordController::class);
+
+    // Profiles
+    Route::apiResource('profiles', ProfileController::class);
+    Route::get('/profiles/search/{search}', [ProfileController::class, 'search']);
+    Route::resource('profiles', ProfileController::class)->except([
+        'create',
+        'store'
+    ]);
 });
